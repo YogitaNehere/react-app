@@ -85,11 +85,11 @@ class Home extends React.PureComponent{
     };
 
     onQtyUpdate = (operation) => {
-      console.log('called from parent..');
+      // console.log('called from parent..');
       if(operation == 'INC'){
         this.setState({ cartItems:this.state.cartItems + 1 });
       }
-      else if( operation == 'DESC' ){
+      else if( operation == 'DEC' ){
         this.setState({ cartItems: this.state.cartItems - 1 });
       }
     };
