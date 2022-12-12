@@ -34,39 +34,39 @@ class ProductCard extends React.Component{
         });
         this.props.onQtyUpdate(type);
     };
-    onQtyDecrease = () => {
-        // this.qty = this.qty -1;
-        // this.state.qty = this.state.qty-1; //Wrong updation of state
-        this.setState(
-            {
-                qty: this.state.qty -1,
-                availableQty: this.state.availableQty + 1
-            }, () => {
-                const isOutOfStock = this.state.availableQty === 0? true:false;
-                this.setState({isOutOfStock:isOutOfStock});
-                console.log(this.state.qty);
-            });
-        this.props.onQtyUpdate('DESC');
-        console.log('qty descresed');
-    };
+    // onQtyDecrease = () => {
+    //     // this.qty = this.qty -1;
+    //     // this.state.qty = this.state.qty-1; //Wrong updation of state
+    //     this.setState(
+    //         {
+    //             qty: this.state.qty -1,
+    //             availableQty: this.state.availableQty + 1
+    //         }, () => {
+    //             const isOutOfStock = this.state.availableQty === 0? true:false;
+    //             this.setState({isOutOfStock:isOutOfStock});
+    //             console.log(this.state.qty);
+    //         });
+    //     this.props.onQtyUpdate('DESC');
+    //     console.log('qty descresed');
+    // };
 
-    onQtyIncrease = () => {
-        // this.qty = this.qty +1;
-        // this.state.qty = this.state.qty + 1; //Wrong updation of state
-        // this.setState({qty:this.state.qty+1});
-        this.setState(
-            {
-                qty:this.state.qty+1,
-                availableQty: this.state.availableQty -1
-            }, () => {
-                const isOutOfStock = this.state.availableQty === 0? true:false;
-                this.setState({isOutOfStock:isOutOfStock});
-                console.log(this.state.qty);
-        });
-        this.props.onQtyUpdate('INC');
-        // console.log(this.state.qty);
-        // console.log('Qty Increased');
-    };
+    // onQtyIncrease = () => {
+    //     // this.qty = this.qty +1;
+    //     // this.state.qty = this.state.qty + 1; //Wrong updation of state
+    //     // this.setState({qty:this.state.qty+1});
+    //     this.setState(
+    //         {
+    //             qty:this.state.qty+1,
+    //             availableQty: this.state.availableQty -1
+    //         }, () => {
+    //             const isOutOfStock = this.state.availableQty === 0? true:false;
+    //             this.setState({isOutOfStock:isOutOfStock});
+    //             console.log(this.state.qty);
+    //     });
+    //     this.props.onQtyUpdate('INC');
+    //     // console.log(this.state.qty);
+    //     // console.log('Qty Increased');
+    // };
 
     componentDidMount(){
         // this.interval = setInterval(() => {
