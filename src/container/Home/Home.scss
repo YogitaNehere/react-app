@@ -1,0 +1,42 @@
+@import "../../config/variables.scss";
+
+//Variables
+$card-img-height: 200px;
+
+//Functions
+@mixin flex-center{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+//Pass arguments to mixins
+// @mixin flex-center($alignment){
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+// }
+
+.Home{
+  .products-container {
+    @include flex-center();
+    img {
+      width: $card-img-height;
+      height: 200px;
+    }
+  }
+
+  .cart {
+    font-weight: 600;
+    font-size: $primary-font-size;
+    margin: 20px;
+  }
+
+  .search-box {
+    height: 24px;
+    width: 30%;
+    border: 0.5px solid grey;
+    box-shadow: 5px 5px 5px grey;
+    border-radius: 10px;
+    padding: 0px 10px;
+  }
+}

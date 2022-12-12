@@ -1,0 +1,36 @@
+@import "../../config/variables.scss";
+
+.product-card {
+    margin: 10px;
+    display: inline-block;
+    width: 300px;
+    box-shadow: 5px 5px 5px grey;
+    border-radius: 10px;
+    border: 1px solid grey;
+    text-align: center;
+    min-height: 300px;
+
+    .title {
+        font-size: $primary-font-size;
+        margin-bottom: 5px;
+    }
+    
+    .product-info {
+        padding: 5px;
+    }
+    
+    .price {
+
+    }
+    
+    .category {
+        /* padding: ; */
+    }
+    
+    .cta button{
+        width: 50px;
+        margin: 5px 20px;
+    }
+}
+
+
