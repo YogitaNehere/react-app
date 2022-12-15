@@ -35,10 +35,7 @@ class Register extends React.Component{
         e.preventDefault();
         const formData = this.state;
         //Add validations here
-        if(formData.fullName == ''){
-            $('#error_fullName').html('Please enter the fullname.');
-            return false;
-        }
+       
         // console.log('Form submited..'+this.state);
         //Call user Registration REST API
         
