@@ -121,7 +121,7 @@ class ProductCard extends React.Component{
         const product = this.props.product;
         return(
             <div className='product-card'>
-                <Link to={product}>
+                <Link to={"product/"+product.id}>
                 <img src={product.image} alt=""/>
                 <div className='product-info'>
                     <h5 className='title'>{product.title}</h5>

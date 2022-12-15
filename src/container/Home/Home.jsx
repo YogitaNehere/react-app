@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import { CONSTANTS } from '../../utils/constants.js'; 
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 import './Home.scss';
@@ -56,7 +57,7 @@ class Home extends React.PureComponent{
    componentDidMount(){
     this.setState({showLoader:true});
     axios
-    .get("https://fakestoreapi.com/products")
+    .get(CONSTANTS.API_BASE_URL+"products")
     .then((response) => {
       console.log(response.data);
       this.setState({
