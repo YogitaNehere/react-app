@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './ProductCard.scss';
 
 const ProductCard = (props) => {
@@ -13,10 +13,11 @@ const ProductCard = (props) => {
         availableQty:5,
         isOutOfStock: false
     });
+    const navigate = useNavigate();
     const product = props.product;
 
     const onQtyChange = (type) => {
-        console.log(type);
+        // console.log(type);
         let newQty = state.qty;
         let newAvailableQty = state.availableQty;
 
@@ -35,16 +36,25 @@ const ProductCard = (props) => {
         });
         props.onQtyUpdate(type);
     }
+    const onProductClick = () => {
+        // console.log('product clicked');
+        navigate("/product?productId="+props.product.id, {
+            state: props.product
+        });
+    }
     return(
         <div className='product-card'>
-            <Link to={"product/"+product.id}>
-            <img src={product.image} alt=""/>
-            <div className='product-info'>
-                <h5 className='title'>{product.title}</h5>
-                <p className='price'>Price Rs {product.price}</p>
-                <p className='category'>{product.tags}</p>
+            <div onClick={onProductClick}> 
+                {/* <Link to={"product/"+product.id}> */}
+                <img src={product.image} alt={product.title}/>
+                <div className='product-info'>
+                    <h5 className='title'>{product.title}</h5>
+                    <p className='price'>Price Rs {product.price}</p>
+                    <p className='category'>{product.tags}</p>
+                </div>
+                {/* </Link> */}
             </div>
-            </Link>
+            
             <div className='cta'>
                 <button disabled={state.qty ===0 ? true:false} onClick={ () => onQtyChange('DEC') }>-</button>
                 {state.qty}

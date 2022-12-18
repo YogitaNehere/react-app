@@ -57,7 +57,7 @@
       axios
       .get(CONSTANTS.API_BASE_URL+"products")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setState({
           ...state,
           productList:response.data,
@@ -68,7 +68,7 @@
       })
       .catch((error) => {
         setState({...state, showLoader:false});
-        console.log(error);
+        // console.log(error);
       });
     }, []);
 

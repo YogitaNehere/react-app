@@ -1,55 +1,66 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Product.scss";
 import { CONSTANTS } from "../../utils/constants";
 
 import loaderImg from '../../assets/images/loader_img.gif';
-import { useState } from "react";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const Product = (props) => {
     const [state, setState] = useState({
         productDetails: [],
         showLoader: false
     });
+    //useParams --> gives key value pair of params
+    // const params = useParams();
+    // console.log(params);
 
     const { id } = useParams();
+    const location = useLocation();
+    console.log(location);
 
+    // const searchParams = new URLSearchParams(location.search);
+    // console.log(searchParams);
+
+    // const productID = searchParams.get('productId');
+    console.log(location);
     useEffect(() => {
-        setState({...state, showLoader:true});
-        //access currently open url: window.location.pathname
-        // let path = window.location.pathname;
-        // console.log(path);
-        // path = path.split('/');
-        // const productID = path[2];
-        // const { id } = useParams();
-
-        axios
-        .get(CONSTANTS.API_BASE_URL+'products/'+id)
-        .then((response) => {
-            console.log(response.data);
-            setState({
-                ...state,
-                productDetails: response.data,
-                showLoader:false
-            })
-        })
-        .catch((error) => {
-            console.log(error);
-            setState({
-                ...state,
-                showLoader:false
-            })
-        });
+        setState({...state, productDetails: location.state})
     }, []);
+    // useEffect(() => {
+    //     setState({...state, showLoader:true});
+    //     //access currently open url: window.location.pathname
+    //     // let path = window.location.pathname;
+    //     // console.log(path);
+    //     // path = path.split('/');
+    //     // const productID = path[2];
+    //     // const { id } = useParams();
+
+    //     axios
+    //     .get(CONSTANTS.API_BASE_URL+'products/'+productID)
+    //     .then((response) => {
+    //         console.log(response.data);
+    //         setState({
+    //             ...state,
+    //             productDetails: response.data,
+    //             showLoader:false
+    //         })
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //         setState({
+    //             ...state,
+    //             showLoader:false
+    //         })
+    //     });
+    // }, []);
 
     return(
         
         <div className="product-details-container">
             {state.showLoader && <img src={loaderImg} alt="Loader" />}
             <img src={state.productDetails.image} alt={state.productDetails.title} />
-            <div class="product-info">
+            <div className="product-info">
                 <h1>{state.productDetails.title}</h1>
                 <h3>Category: {state.productDetails.category}</h3>
                 <p><b>Description: </b>{state.productDetails.description}</p>
