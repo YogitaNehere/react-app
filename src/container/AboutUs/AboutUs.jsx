@@ -1,22 +1,14 @@
 import React from 'react';
-
-class AboutUs extends React.Component{
-    constructor() {
-      super();
-    }
-
-    render(){
-        return (
-            <div>
-                <ul>
-                    <li>Phone: +91 8983046706</li>
-                    <li>Email: info@example.com</li>
-                    <li>Address: 123, ABC Street,Nashik, MH, India</li>
-                    <li>Pulse Solutions</li>
-                </ul>
-            </div>
-        )
-    }
+const AboutUs = () => {
+    return (
+        <div>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        </div>
+    )
 }
-
 export default AboutUs;

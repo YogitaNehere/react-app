@@ -2,92 +2,106 @@ import axios from "axios";
 import React from "react";
 import "./Register.scss";
 import { CONSTANTS } from "../../utils/constants";
+import { useState } from "react";
 
-class Register extends React.Component{
-    constructor(){
-        super();
-        this.state = {
-            fullName: "",
-            email: "",
-            password:"",
-            confirmPassword: ""
-        }
-    }
-    // onNameChange = (e) => {
-    //     this.setState({fullName: e.target.value});
-    // };
-    // onEmailChange = (e) => {
-    //     this.setState({email: e.target.value});
-    // };
-    // onPasswordChange = (e) => {
-    //     this.setState({password: e.target.value});
-    // };
-    // onConfirmPasswordChange = (e) => {
-    //     this.setState({confirmPassword: e.target.value});
-    // };
+const Register = () => {
+    const [state, setState] = useState({
+        fullName: "",
+        email: "",
+        password:"",
+        confirmPassword: "",
+        error:{
+            hasErrors: false,
+            errorMsgs: {},
+        },
+    });
 
-    onInputChange = (e) => {
+    const onInputChange = (e) => {
         console.log(e.target.value);
-        this.setState({[e.target.id] : e.target.value});
+        setState({...state, [e.target.id] : e.target.value});
     };
 
-    onFormSubmit = (e) => {
+    const validateRegistrationForm = (data) => {
+        const errors = [];
+        let hasErrors = false;
+
+        if(data.fullName.length === 0 && data.fullName.length > 20){
+            errors.fullName = "Full name should be between 1 to 20 characters.";
+        }
+
+        hasErrors = Object.keys(errors).length ? true : false;
+
+        setState({
+            errors:{
+                hasErrors: hasErrors,
+                errorMsgs: errors
+            }
+        });
+        return hasErrors;
+    }
+
+    const onFormSubmit = (e) => {
         e.preventDefault();
-        const formData = this.state;
-        //Add validations here
-       
-        // console.log('Form submited..'+this.state);
-        //Call user Registration REST API
-        
-        axios.post(CONSTANTS.API_BASE_URL+'users', formData)
+        const formData = state;
+        //Validations
+        // const hasErrors = validateRegistrationForm(formData);
+        axios
+            .post(CONSTANTS.API_BASE_URL+'products')
             .then((response) => {
                 console.log(response.data);
-                
+                setState({
+                    ...state, 
+                    fullName: "",
+                    email: "",
+                    password:"",
+                    confirmPassword: "",
+                    error:{
+                        hasErrors: false,
+                        errorMsgs: {},
+                    },
+                });
+                alert('Regiration completed successfully, please login to continue');
+
             })
             .catch((error) => {
-                console.log(error)
-            })
-    };
+                console.log(error);
+            });
 
-    componentDidMount(){
-        // setTimeout(() => {
-        //     this.setState({fullName: "xyz"});
-        // }, 10000);
-    };
+            // Call User Registraion REST API
+            console.log("Form submiited", this.state);
+    }
 
+    return(
+        <div>
+            <h2>Register Here</h2>
+            <form onSubmit={onFormSubmit} className="registration-form">
+                <div>
+                    <label htmlFor="fullName">Full Name</label>
+                    <input value={state.fullName} onChange={onInputChange} id='fullName' type='text' />
+                    {/* { this.state.errors.fullName } */}
+                    <span className="error" id="error_fullName"></span>
+                </div>
+                <div>
+                    <label htmlFor="email">Email</label>
+                    <input value={state.email} onChange={onInputChange} id='email' type='email' />
+                </div>
+                <div>
+                    <label htmlFor="dob">DOB</label>
+                    <input value={state.date} onChange={onInputChange} id='date' type='date' />
+                </div>
+                <div>
+                    <label htmlFor="password">Password</label>
+                    <input value={state.password} onChange={onInputChange} id='password' type='password' />
+                </div>
+                <div>
+                    <label htmlFor="confirmPassword">Confirm password</label>
+                    <input value={state.confirmPassword} onChange={onInputChange} id='confirmPassword' type='password' />
+                </div>
 
-    render(){
-        return (
-            <div>
-                <h2>Register Here</h2>
-                <form onSubmit={this.onFormSubmit} className="registration-form">
-                    <div>
-                        <label htmlFor="fullName">Full Name</label>
-                        <input value={this.state.fullName} onChange={this.onInputChange} id='fullName' type='text' />
-                        <span className="error" id="error_fullName"></span>
-                    </div>
-                    <div>
-                        <label htmlFor="email">Email</label>
-                        <input value={this.state.email} onChange={this.onInputChange} id='email' type='email' />
-                    </div>
-                    <div>
-                        <label htmlFor="dob">DOB</label>
-                        <input value={this.state.date} onChange={this.onInputChange} id='date' type='date' />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password</label>
-                        <input value={this.state.password} onChange={this.onInputChange} id='password' type='password' />
-                    </div>
-                    <div>
-                        <label htmlFor="confirmPassword">Confirm password</label>
-                        <input value={this.state.confirmPassword} onChange={this.onInputChange} id='confirmPassword' type='password' />
-                    </div>
-
-                    <input type="submit" />
-                </form>
-            </div>
-        )
-    };
+                <input type="submit" />
+            </form>
+        </div>
+    );
 }
 
 export default Register;

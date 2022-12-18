@@ -4,65 +4,68 @@ import "./Product.scss";
 import { CONSTANTS } from "../../utils/constants";
 
 import loaderImg from '../../assets/images/loader_img.gif';
+import { useState } from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-class Product extends React.PureComponent{
-    constructor(){
-        super();
-        this.state = {
-            productDetails: [],
-            showLoader: false
-        };
-    }
+const Product = (props) => {
+    const [state, setState] = useState({
+        productDetails: [],
+        showLoader: false
+    });
 
-    componentDidMount(){
-        this.setState({showLoader:true});
-        //access currently open url
-        // window.location.pathname
-        let path = window.location.pathname;
-        console.log(path);
-        path = path.split('/');
-        const productID = path[2];
+    const { id } = useParams();
+
+    useEffect(() => {
+        setState({...state, showLoader:true});
+        //access currently open url: window.location.pathname
+        // let path = window.location.pathname;
+        // console.log(path);
+        // path = path.split('/');
+        // const productID = path[2];
+        // const { id } = useParams();
 
         axios
-        .get(CONSTANTS.API_BASE_URL+'products/'+productID)
+        .get(CONSTANTS.API_BASE_URL+'products/'+id)
         .then((response) => {
             console.log(response.data);
-            this.setState({
+            setState({
+                ...state,
                 productDetails: response.data,
                 showLoader:false
-            });
+            })
         })
-        .catch(error => {
+        .catch((error) => {
             console.log(error);
-            this.setState({showLoader: false});
+            setState({
+                ...state,
+                showLoader:false
+            })
         });
-    }
+    }, []);
 
-    render(){
-        const productDetails = this.state.productDetails;
-        return(
-            
-            <div className="product-details-container">
-                {this.state.showLoader && <img src={loaderImg} alt="Loader" />}
-                <img src={productDetails.image} alt={productDetails.title} />
-                <div class="product-info">
-                    <h1>{productDetails.title}</h1>
-                    <h3>Category: {productDetails.category}</h3>
-                    <p><b>Description: </b>{productDetails.description}</p>
-                    <p><b>Price: </b>{productDetails.price}</p>
-                    {
-                        productDetails.rating && (
-                            <div>
-                                <span><b>Ratings:</b> {productDetails.rating.rate} / 5</span><br />
-                                {productDetails.rating.count && (<span><b>Rated by:</b> {productDetails.rating.count} users</span>)}
-                                
-                            </div>
-                        )
-                    }
-                </div>
+    return(
+        
+        <div className="product-details-container">
+            {state.showLoader && <img src={loaderImg} alt="Loader" />}
+            <img src={state.productDetails.image} alt={state.productDetails.title} />
+            <div class="product-info">
+                <h1>{state.productDetails.title}</h1>
+                <h3>Category: {state.productDetails.category}</h3>
+                <p><b>Description: </b>{state.productDetails.description}</p>
+                <p><b>Price: </b>{state.productDetails.price}</p>
+                {
+                    state.productDetails.rating && (
+                        <div>
+                            <span><b>Ratings:</b> {state.productDetails.rating.rate} / 5</span><br />
+                            {state.productDetails.rating.count && (<span><b>Rated by:</b> {state.productDetails.rating.count} users</span>)}
+                            
+                        </div>
+                    )
+                }
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default Product;
