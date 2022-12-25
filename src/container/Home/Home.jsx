@@ -75,9 +75,9 @@
     const productList = state.productList;
     return(
       <main className='Home'>
-        <section className='cart'>
+        {/* <section className='cart'>
           Items in Cart: {state.cartItems}
-        </section>
+        </section> */}
         {/* <Slider {...settings}>
         {productList.map((product) => {
           return (

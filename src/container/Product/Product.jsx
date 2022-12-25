@@ -16,14 +16,14 @@ const Product = (props) => {
     // console.log(params);
 
     const { id } = useParams();
+
     const location = useLocation();
     console.log(location);
 
-    // const searchParams = new URLSearchParams(location.search);
-    // console.log(searchParams);
+    const searchParams = new URLSearchParams(location.search);
+    const productID = searchParams.get('productId');
+    console.log(productID);
 
-    // const productID = searchParams.get('productId');
-    console.log(location);
     useEffect(() => {
         setState({...state, productDetails: location.state})
     }, []);

@@ -1,8 +1,11 @@
 import React from 'react';
 import './Header.scss';
 import {Link} from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+    const cart = useSelector((state) => state.cart);
+    console.log(cart);
     return(
         <header>
             <nav className='nav-bar'>
@@ -18,6 +21,10 @@ const Header = () => {
                 </div>
                 <div>
                     {/* <a>Login</a> */}
+                    <div className='cart-container'>
+                    <img className="cart-icon" src='' />
+                    <span className='cart-count'>{cart.itemsCount}</span>
+                    </div>
                     <Link to="/register">Register</Link>
                     <Link to="/login">Login</Link>
                 </div>

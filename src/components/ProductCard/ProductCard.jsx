@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './ProductCard.scss';
+import {addItemsToCart, removeItemsFromCart} from "../../actions/cartActions";
+import { useDispatch } from 'react-redux';
 
 const ProductCard = (props) => {
     
@@ -15,6 +17,10 @@ const ProductCard = (props) => {
     });
     const navigate = useNavigate();
     const product = props.product;
+    // addItemsToCart(); //it terats as normal functions
+    //How we connect function with redux
+    const dispatch = useDispatch();
+
 
     const onQtyChange = (type) => {
         // console.log(type);
@@ -24,9 +30,11 @@ const ProductCard = (props) => {
         if(type === 'INC'){
             newQty++;
             newAvailableQty--;
+            dispatch(addItemsToCart());
         }else if(type === 'DEC'){
             newQty--;
             newAvailableQty++;
+            dispatch(removeItemsFromCart());
         }
         setState({
             ...state,
